@@ -55,13 +55,13 @@ function getBangredirectUrl() {
     return null;
   }
 
-  const match = query.match(/!(\S+)/i);
+  const match = query.match(/(\S+!)|(!\S+)/i);
 
   const bangCandidate = match?.[1]?.toLowerCase();
   const selectedBang = bangs.find((b) => b.t === bangCandidate) ?? defaultBang;
 
   // Remove the first bang from the query
-  const cleanQuery = query.replace(/!\S+\s*/i, "").trim();
+  const cleanQuery = query.replace(/(!\S+\s*)|(\S+!\s*)/i, "").trim();
 
   // Format of the url is:
   // https://www.google.com/search?q={{{s}}}
