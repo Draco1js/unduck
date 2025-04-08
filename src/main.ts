@@ -60,6 +60,10 @@ function getBangredirectUrl() {
   const bangCandidate = match?.[1]?.toLowerCase();
   const selectedBang = bangs.find((b) => b.t === bangCandidate) ?? defaultBang;
 
+  if (query === selectedBang?.t) {
+    return selectedBang.d;
+  }
+
   // Remove the first bang from the query
   const cleanQuery = query.replace(/(!\S+\s*)|(\S+!\s*)/i, "").trim();
 
@@ -70,6 +74,8 @@ function getBangredirectUrl() {
     // Replace %2F with / to fix formats like "!ghr+t3dotgg/unduck"
     encodeURIComponent(cleanQuery).replace(/%2F/g, "/")
   );
+
+  
   if (!searchUrl) return null;
 
   return searchUrl;
